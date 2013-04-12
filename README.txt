@@ -1,0 +1,1 @@
+This project took me between seven and ten hours to complete. I spent most of my time trying to download all the necessary tools and research different commands associated with 'get' and 'post' in express. 
