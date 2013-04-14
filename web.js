@@ -3,8 +3,7 @@ var dbURL = process.env.MONGOLAB_URI ||
 			process.env.MONGOHQ_URL ||
 			'mongodb://localhost/mydb';
 
-var collection = ['games'];
-console.log(dbURL);
+var collection = ['highscores'];
 var db = require('mongojs').connect(dbURL, collection); 
 
 var app = express.createServer(express.logger());
@@ -21,7 +20,7 @@ app.get('/',function(req,res){
 	var myGames = new Array;
 	var gameString = '<link rel="stylesheet" href="web.css"><h1 style = "text-align:center">Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game Title</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
-	db.games.find(function(err, games) {
+	db.highscores.find(function(err, games) {
   		if(err || !games) console.log("NOTHING FOUND");
  	 	else games.forEach(function(gameFound) {
   			myGames[numGames] = gameFound;
@@ -55,7 +54,7 @@ app.post('/submit.json',function(req,res){
 	myUsername = req.body.username;
 	myScore = req.body.score;
 	date = new Date();
-	db.games.insert({game_title:myGameTitle, username:myUsername, score:myScore, created_at:date});
+	db.highscores.insert({game_title:myGameTitle, username:myUsername, score:myScore, created_at:date});
 	res.send("Done");
 });
 
@@ -65,9 +64,9 @@ app.get('/highscores.json',function(req,res){
 	var myGames = new Array;
 	var gameString = '<link rel="stylesheet" href="web.css"><h1 style = "text-align:center">Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Rank</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
-	db.games.find({game_title:currGameTitle},function(err, games) {
-  		if(err || !games) console.log("NOTHING FOUND");
- 	 	else games.forEach(function(gameFound) {
+	db.highscores.find({game_title:currGameTitle},function(err, highscores) {
+  		if(err || !highscores) console.log("NOTHING FOUND");
+ 	 	else highscores.forEach(function(gameFound) {
   			myGames[numGames] = gameFound;
   			numGames++;
   		});
@@ -88,7 +87,7 @@ app.get('/usersearch',function(req,res){
 	app.set('Content-Type', 'text/html');
 	searchTitle = req.query.game_title;
 	gameString="HI";
-	buttonString='<script>function callback(){window.location="http://localhost:5000/usersearch2?username="+document.getElementById("textbox").value+""}</script>Username: <input id="textbox" type="text" name="username"><button onclick="callback()">Search</button>';
+	buttonString='<script>function callback(){window.location="http://secure-lake-9594.herokuapp.com/usersearch2?username="+document.getElementById("input").value+""}</script>Username: <input id="input" type="text" name="username"><button id="submit" onclick="callback()">Search</button>';
 	res.send(buttonString);
 });
 
@@ -98,9 +97,9 @@ app.get('/usersearch2',function(req,res){
 	var myGames = new Array;
 	var gameString = '<link rel="stylesheet" href="web.css"><h1 style = "text-align:center">'+currUser+'&#146;s Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
-	db.games.find({username:currUser},function(err, games) {
-  		if(err || !games) console.log("NOTHING FOUND");
- 	 	else games.forEach(function(gameFound) {
+	db.highscores.find({username:currUser},function(err, highscores) {
+  		if(err || !highscores) console.log("NOTHING FOUND");
+ 	 	else highscores.forEach(function(gameFound) {
   			myGames[numGames] = gameFound;
   			numGames++;
   		});
