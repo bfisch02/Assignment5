@@ -1,7 +1,7 @@
 var express = require('express');
 var dbURL = process.env.MONGOLAB_URI ||
 			process.env.MONGOHQ_URL ||
-			'mongodb://localhost/mydb';
+			'mongodb://bfisch02:Metzrok509@linus.mongohq.com:10074/app14124771';
 
 var collection = ['highscores'];
 var db = require('mongojs').connect(dbURL, collection); 
