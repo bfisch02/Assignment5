@@ -18,7 +18,7 @@ app.all('/',function(req, res, next) {
 app.get('/',function(req,res){
 	app.set('Content-Type', 'text/html');
 	var myGames = new Array;
-	var gameString = '<link rel="stylesheet" href="web.css"><h1 style = "text-align:center">Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game Title</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
+	var gameString = '<h1 style = "text-align:center">Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game Title</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
 	db.highscores.find(function(err, games) {
   		if(err || !games) console.log("NOTHING FOUND");
