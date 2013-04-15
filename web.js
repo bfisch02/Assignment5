@@ -62,7 +62,7 @@ app.get('/highscores.json',function(req,res){
 	currGameTitle = req.query.game_title;
 	app.set('Content-Type', 'text/html');
 	var myGames = new Array;
-	var gameString = '<link rel="stylesheet" href="web.css"><h1 style = "text-align:center">Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Rank</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
+	var gameString = '<h1 style = "text-align:center">Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Rank</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
 	db.highscores.find({game_title:currGameTitle},function(err, highscores) {
   		if(err || !highscores) console.log("NOTHING FOUND");
@@ -95,7 +95,7 @@ app.get('/usersearch2',function(req,res){
 	currUser = req.query.username;
 	app.set('Content-Type', 'text/html');
 	var myGames = new Array;
-	var gameString = '<link rel="stylesheet" href="web.css"><h1 style = "text-align:center">'+currUser+'&#146;s Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
+	var gameString = '<h1 style = "text-align:center">'+currUser+'&#146;s Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
 	db.highscores.find({username:currUser},function(err, highscores) {
   		if(err || !highscores) console.log("NOTHING FOUND");
