@@ -73,7 +73,7 @@ app.get('/highscores.json',function(req,res){
   		myGames = myGames.sort(function(a,b){return b.score-a.score});
   		for (i = 0; i<10; i++) {
   			if (i<numGames) {
-  				gameString+='{"game_title":"'+myGames[i].game_title+'","username":"'+myGames[i].username+'","score":'+myGames[i].score+',"created_at":"'+myGames[i].created_at+'","_id":"'+myGames[i]._id+'"}';
+  				gameString+='{"game_title":"'+myGames[i].game_title+'","username":"'+myGames[i].username+'","score":'+myGames[i].score+',"created_at":"'+myGames[i].created_at+'","_id":'+myGames[i]._id+'}';
   			}
   		}
   		gameString+=']';
@@ -97,7 +97,7 @@ app.get('/usersearch2',function(req,res){
 	var myGames = new Array;
 	var gameString = '<h1 style = "text-align:center">'+currUser+'&#146;s Highscores</h1><table style = "margin-left:auto;margin-right:auto;border:3px solid black"><tr><th style = "border: 1px solid black">Game</th><th style = "border: 1px solid black">Username</th><th style = "border: 1px solid black">Score</th><th style = "border: 1px solid black">Date</th></tr>';
 	numGames = 0;
-	db.highscores.find({usersname:currUser},function(err, highscores) {
+	db.highscores.find({username:currUser},function(err, highscores) {
   		if(err || !highscores) console.log("NOTHING FOUND");
  	 	else highscores.forEach(function(gameFound) {
   			myGames[numGames] = gameFound;
